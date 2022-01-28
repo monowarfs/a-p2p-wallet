@@ -44,6 +44,14 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+        'api_auth_token' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
+        'api_auth_passport' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
     ],
 
     /*

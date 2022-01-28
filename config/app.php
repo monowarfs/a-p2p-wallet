@@ -233,4 +233,5 @@ return [
 
     ],
 
+    'api_version' => env("API_VERSION_NO", '0.1.0')
 ];
