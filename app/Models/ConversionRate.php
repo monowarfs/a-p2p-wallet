@@ -6,11 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Currency extends Model
+class ConversionRate extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'currencies';
+    protected $table = 'conversion_rates';
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
     protected $guarded = ['id'];
+
+    public function from()
+    {
+        return $this->belongsTo(Currency::class, 'from_id', 'id');
+    }
+
+    public function to()
+    {
+        return $this->belongsTo(Currency::class, 'to_id', 'id');
+    }
+
 }

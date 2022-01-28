@@ -3,18 +3,25 @@
 namespace App\Library;
 
 
+use App\Models\ConversionRate;
+
 class CurrencyConverter
 {
-    public function __construct()
+    public function do(int $from, int $to, $amount)
     {
-        // chose which service to consume
-        // if service 1 failed to provide, use another
-    }
+        if($amount == 0) return 0.0;
 
-    public function do($from, $to)
-    {
-        // use the memoization
-        // call the api
+        if($from == $to ) return $amount;
 
+        $fromConversionRate = ConversionRate::where('to_id', $from)
+            ->latest()
+            ->first();
+
+        $toConversionRate = ConversionRate::where('to_id', $to)
+            ->where('provider', $fromConversionRate->provider)
+            ->latest()
+            ->first();
+
+        return  (1*$amount*$toConversionRate->rate) / ($fromConversionRate->rate);
     }
 }

@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function (){
-    return (new \App\Library\CurrencyConversion\OpenExchangeRates\OpenExchangeRatesConverter())->getConversion();
+    return (new \App\Library\CurrencyConverter())->do(150, 13, 1);
 });
