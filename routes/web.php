@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Currency;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function (){
-    return (new \App\Library\CurrencyConversion\Fixer\FixerConverter())->getConversion();
+    return (new \App\Library\CurrencyConversion\OpenExchangeRates\OpenExchangeRatesConverter())->getConversion();
 });

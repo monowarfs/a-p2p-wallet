@@ -73,7 +73,7 @@ class HttpCaller implements CallerInterface
             auth()->check() ? auth()->user()->id : null
         );
 
-        if($response->failed() || $response->clientError() || $response->serverError())
+        if($response->failed())
         {
             $response->throw();
         }
@@ -81,7 +81,7 @@ class HttpCaller implements CallerInterface
         return $response->body();
     }
 
-    public function makeGetRequest($url, $params = [])
+    public function makeGetRequest($url, $params = [], $passBody = false)
     {
         $response = Http::withHeaders($this->getHeader())
             ->get(
@@ -98,9 +98,13 @@ class HttpCaller implements CallerInterface
             auth()->check() ? auth()->user()->id : null
         );
 
-        if($response->failed() || $response->clientError() || $response->serverError())
+        if($response->failed())
         {
             $response->throw();
+        }
+
+        if($passBody){
+            return $response;
         }
 
         return $response->body();
