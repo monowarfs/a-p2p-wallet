@@ -15,7 +15,12 @@ class SendMoneyService
     private $amount;
     private $remarks;
 
-    public function __construct($senderMobileNo, $receiverMobileNo, $amount, $remarks = null)
+    public function __construct(
+        $senderMobileNo,
+        $receiverMobileNo,
+        $amount,
+        $remarks = null
+    )
     {
         $this->senderMobileNo = $senderMobileNo;
         $this->receiverMobileNo = $receiverMobileNo;

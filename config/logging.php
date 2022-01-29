@@ -115,4 +115,10 @@ return [
         ],
     ],
 
+    'mail' => [
+        'driver' => 'single',
+        'path' => storage_path('logs/mail.log'),
+        'level' => 'debug',
+    ],
+
 ];

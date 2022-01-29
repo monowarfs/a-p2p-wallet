@@ -6,5 +6,5 @@ namespace App\Library\Common;
 
 interface CurrencyConversion
 {
-    public function getConversion(): void;
+    public function getConversion();
 }
