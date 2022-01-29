@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library\CurrencyConversion\Fixer;
 
 use App\Models\ConversionRate;
@@ -16,22 +18,21 @@ class FixerBaseRateUpdater
 
         $baseId = $this->getTheBaseCurrencyId($currencies, $conversionRates['base']);
 
-        if($baseId == null){
+        if ($baseId === null) {
             return;
         }
 
         $list = $this->getTheUpdatedList($currencies, $conversionRates['rates'], $baseId);
 
-        if(count($list) > 0)
-        {
+        if (count($list) > 0) {
             ConversionRate::insert($list);
         }
     }
 
     private function getTheBaseCurrencyId($currencies, $baseCode)
     {
-        foreach($currencies as $currency){
-            if($currency->code == $baseCode){
+        foreach ($currencies as $currency) {
+            if ($currency->code === $baseCode) {
                 return $currency->id;
             }
         }
@@ -41,23 +42,19 @@ class FixerBaseRateUpdater
     private function getTheUpdatedList($currencies, $rates, $baseId): array
     {
         $list = [];
-        foreach($currencies as $currency)
-        {
-            foreach($rates as $key => $value)
-            {
-                if($currency->code == $key)
-                {
-                    $list[] =[
+        foreach ($currencies as $currency) {
+            foreach ($rates as $key => $value) {
+                if ($currency->code === $key) {
+                    $list[] = [
                         'from_id' => $baseId,
                         'to_id' => $currency->id,
                         'rate' => $value,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
-                        'provider' => 'fixer'
+                        'provider' => 'fixer',
                     ];
                     break;
                 }
-
             }
         }
         return $list;

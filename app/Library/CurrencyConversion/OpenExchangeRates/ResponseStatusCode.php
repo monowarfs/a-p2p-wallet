@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library\CurrencyConversion\OpenExchangeRates;
 
 class ResponseStatusCode
 {
-    public const RSC400 = "Client requested rates for an unsupported base currency";
-    public const RSC401 = "Client did not provide an App ID";
-    public const RSC403 = "Access restricted for repeated over-use (status: 429), or other reason given in ‘description’ (403).";
-    public const RSC404 = "Client requested a non-existent resource/route";
-    public const RSC429 = "Client doesn’t have permission to access requested route/feature";
+    public const RSC400 = 'Client requested rates for an unsupported base currency';
+    public const RSC401 = 'Client did not provide an App ID';
+    public const RSC403 = 'Access restricted for repeated over-use (status: 429), or other reason given in ‘description’ (403).';
+    public const RSC404 = 'Client requested a non-existent resource/route';
+    public const RSC429 = 'Client doesn’t have permission to access requested route/feature';
 
     public function getText($sl_no)
     {
@@ -26,5 +28,3 @@ class ResponseStatusCode
         }
     }
 }
-
-

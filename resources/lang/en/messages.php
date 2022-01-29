@@ -8,4 +8,8 @@ return [
     'pin_does_not_matched' => 'Sorry! Pin doesn\'t match.',
     'not_sufficient_amount_to_transfer' => 'Sorry! You do not have sufficient amount.',
     'refresh_token' => 'Refresh Token',
+    'sender_wallet_not_active' => 'Sender wallet is not active.',
+    'receiver_wallet_not_active' => 'Receiver wallet is not active.',
+    'duplicate_trx' => 'Duplicate transaction within 120 seconds. Kindly cross-check your transaction history.',
+    'unable_to_process' => 'Sorry! We are unable to process your request at this moment. Try again later'
 ];

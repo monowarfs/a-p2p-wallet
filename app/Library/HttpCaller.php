@@ -1,35 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library;
 
 use App\Jobs\HttpRequestLogJob;
-use App\Library\CommonInterfaces\CallerInterface;
+use App\Library\Common\Caller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class HttpCaller implements CallerInterface
+class HttpCaller implements Caller
 {
     private array $headers;
     private string $baseUrl;
+
     public function __construct($baseUrl = null)
     {
         $this->init();
 
-        if($baseUrl){
+        if ($baseUrl) {
             $this->baseUrl = $baseUrl;
         }
     }
 
-    private function init()
-    {
-        $this->headers = [
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-            'Content-Language' => 'en'
-        ];
-    }
-
-    public function setHeader($key, $value): HttpCaller
+    public function setHeader($key, $value)
     {
         $this->headers[$key] = $value;
         return $this;
@@ -42,7 +36,7 @@ class HttpCaller implements CallerInterface
         return $this->headers;
     }
 
-    public function setBaseUrl($baseUrl): HttpCaller
+    public function setBaseUrl($baseUrl)
     {
         $this->baseUrl = $baseUrl;
         return $this;
@@ -55,13 +49,13 @@ class HttpCaller implements CallerInterface
 
     public function makePostRequest($url, $payload, $contentType = 'application/json')
     {
-
-        $response =  Http::withHeaders($this->getHeader())
+        $response = Http::withHeaders($this->getHeader())
             ->withHeaders([
-                'Content-Type' => $contentType
+                'Content-Type' => $contentType,
             ])
             ->post(
-                $this->getBaseUrl() . $url, $payload
+                $this->getBaseUrl() . $url,
+                $payload
             );
 
         Log::info($response->body());
@@ -73,8 +67,7 @@ class HttpCaller implements CallerInterface
             auth()->check() ? auth()->user()->id : null
         );
 
-        if($response->failed())
-        {
+        if ($response->failed()) {
             $response->throw();
         }
 
@@ -98,15 +91,23 @@ class HttpCaller implements CallerInterface
             auth()->check() ? auth()->user()->id : null
         );
 
-        if($response->failed())
-        {
+        if ($response->failed()) {
             $response->throw();
         }
 
-        if($passBody){
+        if ($passBody) {
             return $response;
         }
 
         return $response->body();
+    }
+
+    private function init(): void
+    {
+        $this->headers = [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Content-Language' => 'en',
+        ];
     }
 }

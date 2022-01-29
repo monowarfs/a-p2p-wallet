@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library\CurrencyConversion\Fixer;
 
-use App\Library\CommonInterfaces\CurrencyConversionInterface;
+use App\Library\Common\CurrencyConversion;
 use App\Library\CurrencyConversion\Fixer\APIService\FixerAPIService;
 use Illuminate\Support\Facades\Log;
 
-class FixerConverter implements CurrencyConversionInterface
+class FixerConverter implements CurrencyConversion
 {
-
     private FixerAPIService $fixerAPIService;
 
     public function __construct()
@@ -28,7 +29,6 @@ class FixerConverter implements CurrencyConversionInterface
             );
             Log::error($e);
         }
-
     }
 
     public function getConversion()
@@ -44,6 +44,4 @@ class FixerConverter implements CurrencyConversionInterface
             Log::error($e);
         }
     }
-
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library\CurrencyConversion\Fixer;
 
 class ResponseStatusCode
@@ -70,5 +72,3 @@ class ResponseStatusCode
         }
     }
 }
-
-

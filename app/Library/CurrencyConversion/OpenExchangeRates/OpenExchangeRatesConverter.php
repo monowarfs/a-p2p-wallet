@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library\CurrencyConversion\OpenExchangeRates;
 
-use App\Library\CommonInterfaces\CurrencyConversionInterface;
+use App\Library\Common\CurrencyConversion;
 use App\Library\CurrencyConversion\OpenExchangeRates\APIService\APIService;
 use Illuminate\Support\Facades\Log;
 
-class OpenExchangeRatesConverter implements CurrencyConversionInterface
+class OpenExchangeRatesConverter implements CurrencyConversion
 {
     private APIService $apiService;
 
@@ -27,7 +29,6 @@ class OpenExchangeRatesConverter implements CurrencyConversionInterface
             );
             Log::error($e);
         }
-
     }
 
     public function getConversion()
@@ -43,6 +44,4 @@ class OpenExchangeRatesConverter implements CurrencyConversionInterface
             Log::error($e);
         }
     }
-
-
 }

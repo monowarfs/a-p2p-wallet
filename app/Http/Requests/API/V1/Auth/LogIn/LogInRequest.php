@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\API\V1\Auth\LogIn;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -28,7 +30,7 @@ class LogInRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator): void
     {
         throw new HttpResponseException(response()->json([
             'code' => 422,

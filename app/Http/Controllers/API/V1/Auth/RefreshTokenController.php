@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\API\V1\Auth;
 
 use App\Http\Controllers\APIBaseController;
@@ -7,17 +9,20 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-
 class RefreshTokenController extends APIBaseController
 {
     public function __invoke(): JsonResponse
     {
-        try{
+        try {
             $user = auth()->user();
 
             DB::beginTransaction();
-            DB::statement("UPDATE oauth_access_tokens SET revoked = 1 WHERE user_id = {$user->id}");
-            $passportToken = $user->createToken($user->mobile_no)->accessToken;
+            DB::statement(
+                "UPDATE oauth_access_tokens SET revoked = 1 WHERE user_id = {$user->id}"
+            );
+            $passportToken = $user
+                ->createToken($user->mobile_no)
+                ->accessToken;
             DB::commit();
 
             $responsePayload = [
@@ -29,8 +34,7 @@ class RefreshTokenController extends APIBaseController
                 [trans('messages.refresh_token')],
                 $responsePayload
             );
-
-        }catch (\Exception $e){
+        } catch (\Exception | \Throwable $e) {
             Log::error($e);
             Log::error(
                 $e->getFile() . ' ' .
@@ -42,6 +46,5 @@ class RefreshTokenController extends APIBaseController
                 trans('messages.internal_server_error')
             );
         }
-
     }
 }

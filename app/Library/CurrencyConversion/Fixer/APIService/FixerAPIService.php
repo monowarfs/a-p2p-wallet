@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library\CurrencyConversion\Fixer\APIService;
 
-use App\Library\CommonInterfaces\ThirdParyServiceInterface;
+use App\Library\Common\ThirdParyService;
 use App\Library\CurrencyConversion\Fixer\APIEndpoint;
 use App\Library\CurrencyConversion\Fixer\ResponseStatusCode;
 use App\Library\HttpCaller;
@@ -11,7 +13,7 @@ use App\Notifications\ServiceConsumedAlertNotification;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 
-class FixerAPIService implements ThirdParyServiceInterface
+class FixerAPIService implements ThirdParyService
 {
     public APIEndpoint $api;
     private HttpCaller $httpCaller;
@@ -26,12 +28,13 @@ class FixerAPIService implements ThirdParyServiceInterface
     {
         try {
             $response = $this->httpCaller->makeGetRequest(
-                $this->api::API_SYMBOLS, [
-                'access_key' => config('services.fixer.key')
-            ]);
+                $this->api::API_SYMBOLS,
+                [
+                    'access_key' => config('services.fixer.key'),
+                ]
+            );
 
             return $this->validateResponse($response);
-
         } catch (\Exception|\Throwable $e) {
             Log::error(
                 $e->getFile() . ' ' .
@@ -41,14 +44,13 @@ class FixerAPIService implements ThirdParyServiceInterface
             Log::error($e);
             return $e;
         }
-
     }
 
     public function conversionService()
     {
         try {
-
-            $symbolsList = implode("," ,
+            $symbolsList = implode(
+                ',',
                 Currency::where('status', 1)
                     ->get()
                     ->pluck('code')
@@ -56,13 +58,14 @@ class FixerAPIService implements ThirdParyServiceInterface
             );
 
             $response = $this->httpCaller->makeGetRequest(
-                $this->api::API_LATEST, [
-                'access_key' => config('services.fixer.key'),
-                'symbols' => $symbolsList
-            ]);
+                $this->api::API_LATEST,
+                [
+                    'access_key' => config('services.fixer.key'),
+                    'symbols' => $symbolsList,
+                ]
+            );
 
             return $this->validateResponse($response);
-
         } catch (\Exception|\Throwable $e) {
             Log::error(
                 $e->getFile() . ' ' .
@@ -73,7 +76,6 @@ class FixerAPIService implements ThirdParyServiceInterface
             return $e;
         }
     }
-
 
     private function validateResponse($response)
     {
@@ -113,12 +115,10 @@ class FixerAPIService implements ThirdParyServiceInterface
                 }
             }
 
-            throw new \Exception("Invalid Response Format");
-
+            throw new \Exception('Invalid Response Format');
         } catch (\Exception|\Throwable $e) {
             Log::error($e);
             return $e;
         }
-
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Library\CurrencyUpdater;
@@ -9,34 +11,18 @@ use Illuminate\Support\Facades\Log;
 
 class CurrencyRateUpdateScheduler extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'currency-rate:updater';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'This command will help to update the conversion rate.';
+    protected $description = 'This command will update conversion rate.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-
-    public function handle()
+    public function handle(): void
     {
-        Log::info("CurrencyRateUpdateScheduler executing at :".Carbon::now());
+        Log::info('CurrencyRateUpdateScheduler executing at :'.Carbon::now());
         new CurrencyUpdater();
     }
 }

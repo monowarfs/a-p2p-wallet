@@ -16,7 +16,7 @@ class CreateHttpRequestLogsTable extends Migration
         Schema::create('http_request_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id')->nullable();
-            $table->mediumText('uri')->nullable();
+            $table->text('uri')->nullable();
             $table->json('request_param')->nullable();
             $table->json('response_param')->nullable();
             $table->timestamps();

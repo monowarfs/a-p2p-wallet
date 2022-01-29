@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
+use App\Exceptions\Wallet\Transaction\Transaction\BusinessValidationEx;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
@@ -17,7 +20,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<Throwable>>
+     * @var array
      */
     protected $dontReport = [
         OAuthServerException::class,
@@ -27,25 +30,12 @@ class Handler extends ExceptionHandler
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $dontFlash = [
-        'current_password',
         'password',
         'password_confirmation',
     ];
-
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
-    }
 
     /**
      * Report or log an exception.
@@ -85,6 +75,14 @@ class Handler extends ExceptionHandler
             ], 500);
         }
 
+        if($exception instanceof BusinessValidationEx){
+            return response()->json([
+                'code' => 422,
+                'messages' => [$exception->getMessage()],
+                'data' => null,
+            ], 500);
+        }
+
         return parent::render($request, $exception);
     }
 
@@ -99,6 +97,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
+            //return response()->json(['error' => 'Unauthenticated'], 401);
             return response()->json([
                 'code' => 401,
                 'messages' => ['Authentication failed'],

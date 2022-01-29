@@ -2,7 +2,14 @@
     "name": "monowarfs/p2p-wallet",
     "type": "project",
     "description": "P2P wallet",
-    "keywords": ["framework", "laravel", "wallet", "currency-conversion", "basic-report"],
+    "keywords": [
+        "framework",
+        "laravel",
+        "wallet",
+        "currency-conversion",
+        "basic-report",
+        "API-only"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Library\CurrencyConversion\Fixer;
 
 class APIEndpoint
 {
     public const API_BASE_URL = 'http://data.fixer.io/api/';
-    public const API_SYMBOLS = "symbols";
-    public const API_LATEST = "latest";
-    public const API_CONVERT = "convert";
-    public const API_FLUCTUATION = "fluctuation";
+    public const API_SYMBOLS = 'symbols';
+    public const API_LATEST = 'latest';
+    public const API_CONVERT = 'convert';
+    public const API_FLUCTUATION = 'fluctuation';
 
     public function getSymbolsEndpoint()
     {

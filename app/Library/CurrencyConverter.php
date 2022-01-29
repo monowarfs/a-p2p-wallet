@@ -1,27 +1,67 @@
 <?php
 
-namespace App\Library;
+declare(strict_types=1);
 
+namespace App\Library;
 
 use App\Models\ConversionRate;
 
 class CurrencyConverter
 {
-    public function do(int $from, int $to, $amount)
+    private ConversionRate $fromConversionRate;
+    private ConversionRate $toConversionRate;
+    private $amount;
+    private $rate;
+    private $convertedAmount;
+
+    public function __construct(int $from, int $to, $amount)
     {
-        if($amount == 0) return 0.0;
+        try {
+            $this->amount = $amount;
 
-        if($from == $to ) return $amount;
+            $this->fromConversionRate = ConversionRate::where('to_id', $from)
+                ->latest()
+                ->first();
 
-        $fromConversionRate = ConversionRate::where('to_id', $from)
-            ->latest()
-            ->first();
+            $this->toConversionRate = ConversionRate::where('to_id', $to)
+                ->where('provider', $this->fromConversionRate->provider)
+                ->latest()
+                ->first();
 
-        $toConversionRate = ConversionRate::where('to_id', $to)
-            ->where('provider', $fromConversionRate->provider)
-            ->latest()
-            ->first();
+            $this->rate = 1 * $this->toConversionRate->rate / $this->fromConversionRate->rate;
 
-        return  (1*$amount*$toConversionRate->rate) / ($fromConversionRate->rate);
+            $this->convertedAmount = $this->rate * $amount ;
+
+        } catch (\Exception|\Throwable $e) {
+            throw new \Exception($e->getMessage(), 0, $e);
+        }
+    }
+
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    public function getConvertedAmount()
+    {
+        return $this->convertedAmount;
+    }
+
+    public function getFromConversionRate(): ConversionRate
+    {
+        return $this->fromConversionRate;
+    }
+
+    public function getToConversionRate(): ConversionRate
+    {
+        return $this->toConversionRate;
+    }
+
+    public function getRateObjects(): array
+    {
+        return [
+            'from' => (array)$this->fromConversionRate,
+            'to' => (array)$this->toConversionRate,
+        ];
     }
 }
