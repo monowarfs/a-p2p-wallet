@@ -1,0 +1,1019 @@
+{
+	"info": {
+		"_postman_id": "e98a710a-4d25-4f1b-ac4d-1c9c20cd0986",
+		"name": "P2P-Wallet-API-Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public-APIs",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "API# Sign In",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"token\", pm.response.json().data.token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "mobile_number",
+											"value": "+8801914000000",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								},
+								"description": "# Story:\n\n\n#### Things to remember:\n\n1. Write Test Code.\n2. Send a Successful Login Notification upon Login\n\n### API Endpoint:\n\nPOST /api/v1/auth/login\n\n### Headers:\n```\nAccept\nContent-Type\n```\n\n### Request Parameters:\n```\nmobile_number\npassword\n```\n### Validation Criteria:\n\nUse Request Class for Validation.\n```\n'mobile_number' => 'required|numeric|regex:/[+][8][8](0)?[0-9]{10}$/',\n'password' => 'required|between:8,32'\n```\n### Response Parameters:\n\n#### Success - i.e. login credentials are matched\n```\n{\n    \"code\": 200,\n    \"messages\": [\n        \"Welcome Back!\"\n    ],\n    \"data\": {\n        \"token\": \"PASSPORT_TOKEN\"\n    }\n}\n```\n\n#### Failed - i.e. mobile number belongs to an user\n```\n{\n    \"code\": 422,\n    \"messages\": [\n      \"Sorry! The credentials do not match.\"\n    ],\n    \"data\": null\n}\n```\n#### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+							},
+							"response": [
+								{
+									"name": "API# Sign In -Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "mobile_number",
+													"value": "+8801914000000",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "{{password}}",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:41:04 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:41:04 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.27"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"code\": 200,\n    \"messages\": [\n        \"Welcome Back!\"\n    ],\n    \"data\": {\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDAwNjMwNjVmYjVhYzNmYjhiNzI1MWRiODdkMTA0ODI4ZDFlMTNmZmIyNTEzNTRhNGY3ODFkNDIwYjcyZWJkODQyMzBlNjk1YWFmY2YzNzkiLCJpYXQiOjE2NDM0NjM2NjQuNjc4MzYsIm5iZiI6MTY0MzQ2MzY2NC42NzgzNjMsImV4cCI6MTY1OTEwMjA2NC42NzE5MTUsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.PTrg2MRazuaTm0BZ0qZ_tCq6e7GnvHUgVL6DmgdcZIUY3rxGg2T18qAKiMWYMU7W0QnYuPq3VfRUSVwM6nEUn2SapaRtPt4BgvxwzaOVkE-WvG3YaeHLUlHXUa8QMLlKWiy3l4E6bF1VPNVd5GMKVQUll5lOoEiNRI8fNWfNXtj6zp3pVuc1hWdzk2HcWie0Ja3jInBZPtf3wcqPx1t1IZrHiXIHP0bmRJJ0ZxsBA4vOq2cEDdx3AorK9Wb3Hfl__lCaqiNzn4kAkSn-EHHTOO9ZEGh9Q2L16SvkdgnpA78pvk3FjY-2SDgrinnOAPCK1duwlDX4TX2huEWIJJA6uyvdl5KkqmZmFej7D-W84UG_oVyUgdBP7SIONe9sxjZU8BaIK4mTt4iEJeGao9TR4eSRyWUjiq15vbNAGUo3w2e-GKOP_4TlK-GzF9Jfiu8MZgqueNvzMX4OMgCh9Iuy2OfpG1vX_klsMYgiTSCt6nFoZvpIFtm-4kqG1OnJpCfF_zXtjROH9jAh_erbQHRsX0DwhEI2zeNH1sJ0Kh9Uo1YWFSXIJO93xWgsipcnRs-BFkTiVU4qG4pjH39cEdVpRb9NgMAE5aREFOwcgEueYNYBLtljRwKQ15YGtkfG_IeLQ_4reD_KrfPEXUzwDZ7tTb2lCktQ5Av4LNuanVErztE\"\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "API#1 Get the API version",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/version",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"version"
+							]
+						},
+						"description": "# Story:\nVersion Check API \n\n#### Things to remember:\n1. PHP Code should be written on strict typing mode.\n2. Write Test Code\n\n### API Endpoint:\n```\nGET /api/v1/version\n```\n\n### Headers:\n```\nAccept: application/json\nContent-Type: application/json\n```\n\n### Request Parameters:\nNo request parameter\n\n### Validation Criteria:\n\n### Response Parameters:\n\n#### Success\n```\n{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"server_time\": \"2022-01-29 13:41:37\",\n        \"api_version\": \"0.1.0\"\n    }\n}\n```\n### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+					},
+					"response": [
+						{
+							"name": "API#1 Get the API version",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/version",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Jan 2022 13:41:37 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Jan 2022 13:41:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.27"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"server_time\": \"2022-01-29 13:41:37\",\n        \"api_version\": \"0.1.0\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Private-APIs",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"token\", pm.response.json().data.token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/private/auth/refresh-token",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"private",
+										"auth",
+										"refresh-token"
+									]
+								},
+								"description": "# Story:\n\n\n#### Things to remember:\n\n1. Write Test Code\n\n### API Endpoint:\n\nPOST /api/v1/private/auth/refresh-token\n\n### Headers:\n```\nAccept\nContent-Type\nAuthorization: Bearer {token}\n```\n\n### Request Parameters:\n\n### Validation Criteria:\n\n### Response Parameters:\n\n#### Success - i.e. login credentials are matched\n```\n{\n    \"code\": 200,\n    \"messages\": [\n        \"Refresh Token\"\n    ],\n    \"data\": {\n        \"token\": \"PASSPORT_TOKEN\"\n    }\n}\n```\n\n\n#### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+							},
+							"response": [
+								{
+									"name": "Refresh Token - success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/v1/private/auth/refresh-token",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"private",
+												"auth",
+												"refresh-token"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:43:11 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:43:11 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.27"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"code\": 200,\n    \"messages\": [\n        \"Refresh Token\"\n    ],\n    \"data\": {\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmQyZjA1OWY4MGRkMTJhMmM1MWI3ZmYwOTkyMmZjMTYzY2RhNjRiNWI0MmIyOWJhMjY5OGM3MDZkNzkyMjhlNDJlNDdiNGE0ZTNhYjBhMmEiLCJpYXQiOjE2NDM0NjM3OTEuOTYzODg1LCJuYmYiOjE2NDM0NjM3OTEuOTYzODg3LCJleHAiOjE2NTkxMDIxOTEuOTYyMDIxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.NkS1rh_w6QJPl5gfOufzGqoc6D9t0pZEQxNPNsu9Cmk8AIfWboATTXJIWwyAB0elMvDMPcD_MgoeJ1I6y4vLVXLlP1CkGCXuotW0iBa0YDvdb8dxPFkz-li2rsyiheE9wf68QUdttIiQ_OE74_lgsLyjZgnI-ZRj1uBgkRPb1NTRtin8Ov-RSN-YCed4tw5Hy1-dRjdUVyxHde7ReRpWUw8LWQnW8ESLd8ewGqZUlTlOMtH-y_bDcjAQAE8Qb_4UWH9fim-F6NCvH-yz05xXXRWj29YeUWPZK01RURQVY1VnWuqJiLqOzIwWbfnnPrUkdbt4vdmQeKWJVQqwzaFfHwvtTFvVDr0RKzpU0-E8A2OJLIoKYuWeEhXCjqQilCiwZcXLR-MFYMWx3Q6JQtKafY7Wj24oYfcvcfX_BacRdzSmr1EX_NHP5oSGTmPl4CrwMy0RGVMduh1GgfUSmmQ8mZrVkwzs_tytX7w-lhZgbqs4HnDnBIuqbszw4lcAcaY5TlkpTj3jTM8uibGIx9yEk2m0LaJpI5nxp-9pkFrDFhBetdm07MHTRrcyr8ZZNvSmMBu06MC-4a71oQy3L5olZQhB3j76NbC6SBeMYDgBhT80td459tn-eep-BbCbnI2MbfLB8zn3XC_OQnlCUBEYu1s89d4DDbgJ7Wca_Vi36AE\"\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "API# User - Wallet Information",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/private/user/wallet-information",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"private",
+										"user",
+										"wallet-information"
+									]
+								},
+								"description": "# Story:\n\n\n### Things to remember:\n\n1. Write Test Code\n2. Use “Auth” middleware to validate the authenticity of incoming authorization token.\n\n\n### API Endpoint:\n\nGET /api/v1/private/user/wallet-information\n\n### Headers:\n```\nAccept: application/json\nContent-Type: application/json\nAuthorization: Bearer {token}\n```\n\n### Request Parameters:\nNo request parameter\n\n### Validation Criteria:\n\n### Response Parameters:\n\n#### Success\n```\n{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"user\": {\n            \"name\": \"Mr. Wallace Dietrich DVM\",\n            \"mobile_number\": \"+8801914000000\",\n            \"email\": \"monowar+0@executorsinc.com\",\n            \"joined_at\": \"2022-01-29 04:47:01\"\n        },\n        \"wallet\": {\n            \"ac_no\": \"PWA100000\",\n            \"currency\": {\n                \"id\": 27,\n                \"code\": \"BZD\",\n                \"name\": \" Belize Dollar\"\n            },\n            \"balance\": \"223,959.00\"\n        }\n    }\n}\n```\n\n#### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+							},
+							"response": [
+								{
+									"name": "API# User - Wallet Information - success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/v1/private/user/wallet-information",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"private",
+												"user",
+												"wallet-information"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:45:48 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:45:48 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.27"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"user\": {\n            \"name\": \"Mr. Wallace Dietrich DVM\",\n            \"mobile_number\": \"+8801914000000\",\n            \"email\": \"monowar+0@executorsinc.com\",\n            \"joined_at\": \"2022-01-29 04:47:01\"\n        },\n        \"wallet\": {\n            \"ac_no\": \"PWA100000\",\n            \"currency\": {\n                \"id\": 27,\n                \"code\": \"BZD\",\n                \"name\": \" Belize Dollar\"\n            },\n            \"balance\": \"223,959.00\"\n        }\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "API#  Transaction History",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/private/user/transaction/history",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"private",
+										"user",
+										"transaction",
+										"history"
+									],
+									"query": [
+										{
+											"key": "transaction_type",
+											"value": "out",
+											"description": "in , out",
+											"disabled": true
+										},
+										{
+											"key": "tx_with",
+											"value": "+8801914",
+											"disabled": true
+										},
+										{
+											"key": "id",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "amount",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "from_date",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "to_date",
+											"value": null,
+											"disabled": true
+										}
+									]
+								},
+								"description": "# Story:\n\nList of transaction Histories\n\n### Things to remember:\n\n1. Write Test Code\n2. Use “Auth” middleware to validate the authenticity of incoming authorization token.\n\n### API Endpoint:\n\nGET /api/v1/private/user/transaction/history\n\n### Headers:\n```\nAccept: application/json\nContent-Type: application/json\nAuthorization: Bearer {token}\n```\n\n### Request Parameters:\nNo request parameter\n\n### Validation Criteria:\n\n\n### Response Parameters:\n\n#### Success\n```\n{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"transactions\": [\n           \n        ],\n        \"has_next_page\": false\n    },\n    \"data_additional\": {\n        \"per_page\": 10,\n        \"total\": 8\n    }\n}\n```\n\n#### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+							},
+							"response": [
+								{
+									"name": "API#  Transaction History - No Trx",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/v1/private/user/transaction/history",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"private",
+												"user",
+												"transaction",
+												"history"
+											],
+											"query": [
+												{
+													"key": "transaction_type",
+													"value": "out",
+													"description": "in , out",
+													"disabled": true
+												},
+												{
+													"key": "tx_with",
+													"value": "+8801914",
+													"disabled": true
+												},
+												{
+													"key": "id",
+													"value": null,
+													"disabled": true
+												},
+												{
+													"key": "amount",
+													"value": null,
+													"disabled": true
+												},
+												{
+													"key": "from_date",
+													"value": null,
+													"disabled": true
+												},
+												{
+													"key": "to_date",
+													"value": null,
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:47:11 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:47:11 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.27"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"transactions\": [],\n        \"has_next_page\": false\n    },\n    \"data_additional\": {\n        \"per_page\": 10,\n        \"total\": 0\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "API#  Wallet Statement",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/private/user/wallet/statements",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"private",
+										"user",
+										"wallet",
+										"statements"
+									],
+									"query": [
+										{
+											"key": "from_date",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "to_date",
+											"value": null,
+											"disabled": true
+										}
+									]
+								},
+								"description": "# Story:\n\nList of transaction Histories\n\n### Things to remember:\n\n1. Write Test Code\n2. Use “Auth” middleware to validate the authenticity of incoming authorization token.\n\n### API Endpoint:\n\nGET /api/v1/private/user/wallet/statements\n\n### Headers:\n```\nAccept: application/json\nContent-Type: application/json\nAuthorization: Bearer {token}\n```\n\n### Request Parameters:\nNo request parameter\n\n### Validation Criteria:\n\n\n### Response Parameters:\n\n#### Success\n```\n{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"statements\": [\n           \n        ],\n        \"has_next_page\": false\n    },\n    \"data_additional\": {\n        \"per_page\": 10,\n        \"total\": 8\n    }\n}\n```\n\n#### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+							},
+							"response": [
+								{
+									"name": "API#  Wallet Statement - No Record",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/v1/private/user/wallet/statements",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"private",
+												"user",
+												"wallet",
+												"statements"
+											],
+											"query": [
+												{
+													"key": "from_date",
+													"value": null,
+													"disabled": true
+												},
+												{
+													"key": "to_date",
+													"value": null,
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:47:31 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 29 Jan 2022 13:47:31 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.4.27"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"code\": 200,\n    \"messages\": [],\n    \"data\": {\n        \"statements\": [],\n        \"has_next_page\": false\n    },\n    \"data_additional\": {\n        \"per_page\": 10,\n        \"total\": 0\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Transaction",
+					"item": [
+						{
+							"name": "Send Money",
+							"item": [
+								{
+									"name": "API# Send Money Summary",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "receiver_mobile_number",
+													"value": "+8801914000001",
+													"type": "text"
+												},
+												{
+													"key": "amount",
+													"value": "1000000",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/private/transaction/send-money/summary",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"private",
+												"transaction",
+												"send-money",
+												"summary"
+											]
+										},
+										"description": "# Story:\n\nPersonal user logged in into his account. Clicks “Send” icon to send money to another personal user. Client application will invoke a GET api to get a list of recent recipients of send money from that user. User can select from recent recipient list or choose a mobile number from contacts or type, enter amount and then click send button. Client application will invoke a POST API to display receiver information, transaction, charge and total payable in a popup screen. \n#### Things to remember:\n\n1. Write Test Code.\n\n### API Endpoint:\n\nPOST /api/v1/private/transaction/send-money/summary\n\n### Headers:\n```\nAccept\nContent-Type\nAuthorization: Bearer {token}\n```\n\n### Request Parameters:\n```\nreceiver_mobile_number\namount\n\n```\n### Validation Criteria:\n\nUse Request Class for Validation.\n```\n'receiver_mobile_number' => 'required|numeric|regex:/[+][9][6][4](0)?[0-9]{9,10}$/|exists:users,mobile_no',\n'amount' => 'required|integer|min:250'\n```\n### Response Parameters:\n\n#### Success - \n```\n{\n    \"code\": 200,\n    \"messages\": [\n    ],\n    \"data\": {\n      \"summary\": {\n        \"recipient\": {\n          \"name\": \"John Doe\",\n          \"mobile_number\": \"+9640101010101\",\n          \"avatar\": \"https://revamp.fast-pay.cash/image/revamp.jpg\"\n        },\n        \"amount\": \"70,000 IQD\",\n        \"charge\": \"250 IQD\",\n        \"total_payable\": \"70,250 IQD\"\n      }\n    }\n}\n```\n\n#### Failed - \n```\n{\n    \"code\": 422,\n    \"messages\": [\n      \"Sorry! The receiver mobile number is not active.\",\n      \"The amount must be greater than 250 IQD\"\n    ],\n    \"data\": null\n}\n```\n#### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+									},
+									"response": []
+								},
+								{
+									"name": "API# Send Money - Execute",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "receiver_mobile_number",
+													"value": "+8801914000002",
+													"type": "text"
+												},
+												{
+													"key": "amount",
+													"value": "1000",
+													"type": "text"
+												},
+												{
+													"key": "pin",
+													"value": "{{$pin}}",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/private/transaction/send-money/execute",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"private",
+												"transaction",
+												"send-money",
+												"execute"
+											]
+										},
+										"description": "# Story:\n\nPersonal user logged in into his account. Clicks “Send” icon to send money to another personal user. Client application will invoke a GET api to get a list of recent recipients of send money from that user. User can select from recent recipient list or choose a mobile number from contacts or type, enter amount and then click send button. Client application will invoke a POST API to display receiver information, transaction, charge and total payable in a popup screen. Once user agree to proceed, it will prompt from Transaction PIN to execute the send money instructions. User enters Transaction PIN. Client application will invoke a POST API to submit the send money transaction information. Back-end system will verify the transaction details and PIN. Will execute the instruction if the request meets all validation criteria defined for that transaction.\n\n#### Things to remember:\n\n1. Write Test Code.\n\n### API Endpoint:\n\nPOST /api/v1/private/transaction/send-money/execute\n\n### Headers:\n```\nAccept\nContent-Type\nAuthorization: Bearer {token}\n```\n\n### Request Parameters:\n```\nreceiver_mobile_number\namount\n\n```\n### Validation Criteria:\n\nUse Request Class for Validation.\n```\n'receiver_mobile_number' => 'required|numeric|regex:/[+][9][6][4](0)?[0-9]{9,10}$/|exists:users,mobile_no',\n'amount' => 'required|integer|min:250'\n```\n### Response Parameters:\n\n#### Success - \n```\n{\n    \"code\": 200,\n    \"messages\": [\n    ],\n    \"data\": {\n      \"summary\": {\n        \"recipient\": {\n          \"name\": \"John Doe\",\n          \"mobile_number\": \"+9640101010101\",\n          \"avatar\": \"https://revamp.fast-pay.cash/image/revamp.jpg\"\n        },\n        \"amount\": \"70,000 IQD\",\n        \"charge\": \"250 IQD\",\n        \"total_payable\": \"70,250 IQD\"\n      }\n    }\n}\n```\n\n#### Failed - \n```\n{\n    \"code\": 422,\n    \"messages\": [\n      \"Sorry! The receiver mobile number is not active.\",\n      \"The amount must be greater than 250 IQD\"\n    ],\n    \"data\": null\n}\n```\n#### Error- i.e. server error\n```\n{\n    \"code\": 500,\n    \"messages\": [\n        \"Whoops! Something went wrong. Please try again later.\"\n    ],\n    \"data\": null\n}\n```"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
