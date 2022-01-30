@@ -24,6 +24,10 @@ class SendMoneyBusinessValidator extends BaseBusinessValidator
 
     public function validate(): void
     {
+        if($this->senderWallet->id == $this->receiverWallet->id){
+            throw new BusinessValidationEx(trans('messages.select_a_different_wallet_to_transfer'));
+        }
+
         if ($this->isWalletActive($this->senderWallet) === false) {
             throw new BusinessValidationEx(trans('messages.sender_wallet_not_active'));
         }

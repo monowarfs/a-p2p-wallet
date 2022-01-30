@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
                 $wallet->user_id = $user->id;
                 $wallet->wallet_ac_no = "PWA10000" . $i;
                 $wallet->currency_id = random_int(1, 168);
-                $wallet->balance = random_int(100000, 1000000);
+                $wallet->balance = 10000;//random_int(100000, 1000000);
                 $wallet->status = 1;
                 $wallet->save();
             }

@@ -51,7 +51,7 @@ class ExecuteRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'code' => 422,
             'messages' => $validator->errors()->all(),
-            'data' => null,
+            'data' => [],
         ], 200));
     }
 }

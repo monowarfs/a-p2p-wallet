@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Laravel\Passport\Exceptions\OAuthServerException;
 use Symfony\Component\ErrorHandler\Error\FatalError;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -80,7 +81,15 @@ class Handler extends ExceptionHandler
                 'code' => 422,
                 'messages' => [$exception->getMessage()],
                 'data' => null,
-            ], 500);
+            ], 200);
+        }
+
+        if($exception instanceof NotFoundHttpException){
+            return response()->json([
+                'code' => 404,
+                'messages' => ['Invalid Endpoint'],
+                'data' => null,
+            ], 200);
         }
 
         return parent::render($request, $exception);
